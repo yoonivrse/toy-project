@@ -1,0 +1,36 @@
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+    "username": "cys",
+    "password": "1234",
+    "email": "cys@sogang.ac.kr"
+}
+
+###
+GET http://localhost:3000/user/getUser/cys@sogang.ac.kr
+
+###
+PUT http://localhost:3000/user/update/cys@sogang.ac.kr
+Content-Type: application/json
+
+{
+    "username": "cys2",
+    "password": "12345",
+    "email": "cys@sogang.ac.kr"
+}
+
+###
+DELETE http://localhost:3000/user/delete/cys@sogang.ac.kr
+
+
+###
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+    "username": "cys2",
+    "password": "12345",
+    "email": "cys"
+
+}
