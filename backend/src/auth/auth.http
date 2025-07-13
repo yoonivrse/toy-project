@@ -1,0 +1,22 @@
+@url = http://localhost:3000/auth
+
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "ys@sogang.ac.kr",
+    "password": "1234",
+    "username": "ys"
+}
+
+###login api
+POST {{url}}/login
+Content-Type: application/json
+
+{
+    "email": "ys@sogang.ac.kr",
+    "password": "1234"
+}
+
+###guard test
+GET {{url}}/test-guard
