@@ -1,7 +1,7 @@
 import { Controller, Body, Get, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from 'src/user/user.dto';
 import { AuthService } from './auth.service';
-import { LoginGuard } from './auth.guard';
+import { LoginGuard, LocalAuthGuard, AuthenticatedGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -30,5 +30,16 @@ export class AuthController {
         return '로그인된 사용자입니다.';
     }
 
+    @UseGuards(LocalAuthGuard)
+    @Post('login-local')
+    loginLocal(@Request() req){
+        return req.user;
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get('test-guard-local')
+    testGuardWithSession(@Request() req){
+        return req.user;
+    }
 
 }

@@ -20,3 +20,24 @@ Content-Type: application/json
 
 ###guard test
 GET {{url}}/test-guard
+
+###
+POST {{url}}/login-local
+Content-Type: application/json
+
+{
+    "email": "ys@sogang.ac.kr",
+    "password": "1234"
+}
+
+### auth fail
+POST {{url}}/login-local
+Content-Type: application/json
+
+{
+    "email": "ys@sogang.ac.kr",
+    "password": "12345"
+}
+
+###
+GET {{url}}/test-guard-local
