@@ -8,11 +8,14 @@ export class User {
     @Column({unique: true })
     email:string;
 
-    @Column()
+    @Column({ nullable: true })
     password: string;
 
     @Column()
     username: string;
+
+    @Column({ nullable: true })
+    providerId: string;
 
     @Column({
         type: 'timestamp',

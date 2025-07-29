@@ -22,8 +22,9 @@ import { AuthModule } from './auth/auth.module';
     database: process.env.DB_NAME,
     entities: [User],
     synchronize: true,
-  }),
-    AuthModule],
+    }),
+    AuthModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
