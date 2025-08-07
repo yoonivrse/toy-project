@@ -8,13 +8,20 @@ export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post('register')
-    async register(@Body() userDto: CreateUserDto){
-        return await this.authService.register(userDto);
+    async register(@Body() userDto: CreateUserDto) {
+        try {
+            const result = await this.authService.register(userDto);
+            return { ok: true, body: result };
+        } catch (error) {
+            console.log(error.message);
+            return { ok: false, errorMessage: error?.message || 'Registration failed' };
+        }
     }
+
 
     @UseGuards(LoginGuard)
     @Post('login')
-    async login2(@Request() req, @Response() res ){
+    async login(@Request() req, @Response() res ){
         if(!req.cookies['login'] && req.user){
             res.cookie('login', JSON.stringify(req.user), {
                 httpOnly: true,
@@ -32,9 +39,10 @@ export class AuthController {
 
     @UseGuards(LocalAuthGuard)
     @Post('login-local')
-    loginLocal(@Request() req){
-        return req.user;
+    loginLocal(@Request() req) {
+        return { ok: true, body: req.user };
     }
+
 
     @UseGuards(AuthenticatedGuard)
     @Get('test-guard-local')

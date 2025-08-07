@@ -17,6 +17,10 @@ async function bootstrap() {
       cookie: { maxAge: 60000 },
     }),
   );
+  app.enableCors({
+    origin: 'http://localhost:3000', 
+    credentials: true,
+  });
   app.use(passport.initialize());
   app.use(passport.session());
   await app.listen(process.env.PORT ?? 3000);
