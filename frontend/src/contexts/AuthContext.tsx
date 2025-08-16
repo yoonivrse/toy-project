@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useCallback, type FC, type PropsWithChildren } from 'react'
-import { post } from '../server'
+import { createContext, useContext, useState, useCallback, type FC, type PropsWithChildren, useEffect } from 'react'
+import { get, post } from '../server'
 import * as U from '../utils'
 
 export type LoggedUser = { email: string; password: string; username?: string }
@@ -10,12 +10,14 @@ type ContextType = {
   signup: (email: string, password: string, username: string, callback?: Callback) => void
   login: (email: string, password: string, callback?: Callback) => void
   logout: (callback?: Callback) => void
+  loginGoogle: (callback?: Callback) => void
 }
 
 export const AuthContext = createContext<ContextType>({
   signup: () => {},
   login: () => {},
-  logout: () => {}
+  logout: () => {},
+  loginGoogle: () => {},
 })
 
 type AuthProviderProps = {}
@@ -83,11 +85,31 @@ export const AuthProvider: FC<PropsWithChildren<AuthProviderProps>> = ({ childre
     callback?.()
   }, [])
 
+  const loginGoogle = useCallback((callback?: Callback) => {
+    get('/auth/check-login')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.ok && data.user) {
+          setLoggedUser(data.user);
+          U.writeObjectP('user', data.user).finally(() => callback && callback());
+        } else {
+          throw new Error('login failed');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        window.alert(err);
+        setErrorMessage('Login failed.');
+      });
+  }, []);
+
   const value = {
     loggedUser,
     signup,
     login,
-    logout
+    logout,
+    loginGoogle
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

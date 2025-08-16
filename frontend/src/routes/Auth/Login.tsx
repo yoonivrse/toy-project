@@ -78,6 +78,7 @@ export default function Login() {
             Sign Up
           </Link>
         </div>
+        <Link to="http://localhost:4000/auth/google">continue with google</Link>
       </div>
     </div>
     <Footer />

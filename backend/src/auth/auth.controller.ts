@@ -45,9 +45,9 @@ export class AuthController {
 
 
     @UseGuards(AuthenticatedGuard)
-    @Get('test-guard-local')
+    @Get('check-login')
     testGuardWithSession(@Request() req){
-        return req.user;
+        return {ok: true, user: req.user};
     }
 
     @Get('to-google')
@@ -58,7 +58,8 @@ export class AuthController {
     @UseGuards(GoogleAuthGuard)
     async googleAuthRedirect(@Request() req, @Response() res){
         const { user } = req;
-        return res.send(user);
+        // return res.send(user);
+        return res.redirect('http://localhost:3000/googlecallback')
     }
 
 }

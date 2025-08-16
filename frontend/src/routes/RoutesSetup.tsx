@@ -7,6 +7,7 @@ import Signup from './Auth/SignUp'
 import Login from './Auth/Login'
 import Logout from './Auth/Logout'
 import NoMatch from './NoMatch'
+import GoogleCallback from './Auth/GoogleCallback'
 
 export default function RoutesSetup() {
   return (
@@ -33,6 +34,7 @@ export default function RoutesSetup() {
           </RequireAuth>
         }
       />
+      <Route path='/googlecallback' element={<GoogleCallback/>} />
       <Route path="*" element={<NoMatch />} />
     </Routes>
   )
