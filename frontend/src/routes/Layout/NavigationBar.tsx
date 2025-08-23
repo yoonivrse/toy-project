@@ -12,12 +12,12 @@ export default function NavigationBar() {
           Home
         </Link>
         {loggedUser && (
-          <Link to="/board" className="btn btn-link ml-4">
-            Board
+          <Link to="/Room" className="ml-4 btn btn-link">
+            Chat
           </Link>
         )}
       </div>
-      <div className="flex p-2 items-center">
+      <div className="flex items-center p-2">
         {!loggedUser && (
           <RRLink to="/login" className="btn btn-sm btn-primary">
             Login

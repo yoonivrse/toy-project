@@ -5,11 +5,11 @@ import { useAuth } from '../../contexts'
 export default function Hero() {
   const {loggedUser} = useAuth();
   return (
-    <div className="flex-col justify-center items-center p-4">
+    <div className="flex-col items-center justify-center p-4 ">
       <Title>Welcome Page</Title>
       {loggedUser &&(
-        <Div className='flex justify-center items-center'>
-          <Link to='/board' className="btn btn-link ml-4 items-center">go to board</Link>
+        <Div className='flex items-center justify-center'>
+          <Link to='/room' className="items-center ml-4 btn btn-link">go to chat</Link>
         </Div>
       )}
     </div>
