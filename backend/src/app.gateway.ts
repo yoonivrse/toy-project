@@ -72,6 +72,13 @@ export class RoomGateway{
         socket.join(room);
     }
 
+    @SubscribeMessage('leaveRoom')
+    handleLeaveRoom(socket: Socket, data){
+        const {room, nickname, toLeaveRoom} = data;
+        socket.leave(toLeaveRoom);
+        this.chatGateway.server.emit('notice',{ message: `${nickname}님이 ${room}방에서 퇴장했습니다.`})
+    }
+
     @SubscribeMessage('message')
     handleMessageToRoom(socket:Socket, data){
         const { nickname, room, message } = data;

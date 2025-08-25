@@ -86,6 +86,11 @@ const Room: React.FC = () => {
     setCurrentRoom(room);
   };
 
+  const leaveRoom = (room: string) => {
+    roomSocket.emit("leaveRoom",{room, nickname, toLeaveRoom: currentRoom});
+    setCurrentRoom('');
+  }
+
   return (
     <Div className="flex-col justify-center p-4 align-center">
         <Title>Chatting</Title>
@@ -114,7 +119,7 @@ const Room: React.FC = () => {
             </Div>
             <Button className="mt-4 bg-primary" onClick={createRoom}>방 만들기</Button>
         </Div>
-        <Div className="flex-col mt-4 ml-4">
+        {currentRoom && <Div className="flex-col mt-4 ml-4">
             <Subtitle className="text-start">채팅</Subtitle>
             <Div className="h-40 p-2 overflow-y-auto border">
             {chatMessages.map((msg, i) => (
@@ -133,7 +138,8 @@ const Room: React.FC = () => {
                 className="w-full p-1 mt-4 border-solid border-primary"
             />
             <Button className="w-full mt-4 text-center border" onClick={sendMessage}>보내기</Button>
-        </Div>
+            <Button className="w-full mt-4 text-center border" onClick={() => leaveRoom(currentRoom)}>나가기</Button>
+        </Div>}
         
     </Div>
   )

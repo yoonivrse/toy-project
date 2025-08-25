@@ -10,7 +10,7 @@ const RequireAuth: FC<PropsWithChildren<RequireAuthProps>> = ({children}) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!loggedUser) navigate(-1) 
+    if (!loggedUser) navigate('/') 
   }, [loggedUser, navigate])
 
   return <>{children}</>
